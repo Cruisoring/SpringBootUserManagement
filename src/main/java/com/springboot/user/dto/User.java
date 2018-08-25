@@ -4,7 +4,7 @@ import com.springboot.user.data.model.UserDetails;
 import com.springboot.user.data.model.UserIdDetails;
 
 public class User implements UserDetails {
-    private static final String passwordPlaceholder = "********";
+    public static final String passwordPlaceholder = "********";
 
     public static User fromUserModel(UserIdDetails user){
         if(user == null)

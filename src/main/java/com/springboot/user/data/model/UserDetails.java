@@ -26,4 +26,12 @@ public interface UserDetails {
         return userModel;
     }
 
+    default boolean isEqualTo(UserDetails another){
+        if(another == null)
+            return false;
+
+        return this.getEmail().equals(another.getEmail())
+                && this.getName().equals(another.getName())
+                && this.getUserName().equals(another.getUserName());
+    }
 }

@@ -3,7 +3,6 @@ package com.springboot.user.controller;
 import com.springboot.user.dto.CreateUserRequest;
 import com.springboot.user.dto.UpdateUserRequest;
 import com.springboot.user.dto.User;
-import com.springboot.user.properties.PagingProperties;
 import com.springboot.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +18,6 @@ public class UserController {
     Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    private PagingProperties pagingProperties;
-
-    @Autowired
     private UserService userService;
 
     /**
@@ -34,10 +30,7 @@ public class UserController {
             @RequestParam(value = "page", required = false, defaultValue = "0") int page,
             @RequestParam(value = "size", required = false, defaultValue = "0") int size
     ) {
-        if (size <= 0) {
-            size = pagingProperties.getSize();
-        }
-        List<User> users = userService.get(page, size);
+        List<User> users = userService.list(page, size);
         return users;
     }
 

@@ -1,10 +1,12 @@
 package com.springboot.user.service;
 
+import com.springboot.user.data.model.UserDetails;
 import com.springboot.user.data.model.UserModel;
 import com.springboot.user.data.repository.UserRepository;
 import com.springboot.user.dto.CreateUserRequest;
 import com.springboot.user.dto.UpdateUserRequest;
 import com.springboot.user.dto.User;
+import com.springboot.user.properties.PagingProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +22,15 @@ public class UserService {
     Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
+    private PagingProperties pagingProperties;
+
+    @Autowired
     private UserRepository userRepository;
 
-    public List<User> get(int page, int size) {
+    public List<User> list(int page, int size) {
+        if (size <= 0) {
+            size = pagingProperties.getSize();
+        }
         PageRequest pageRequest = PageRequest.of(page, size);
 
         List<UserModel> users = userRepository.findAll(pageRequest).getContent();
@@ -44,13 +52,13 @@ public class UserService {
         }
     }
 
-    public User create(CreateUserRequest userRequest){
+    public User create(UserDetails userRequest){
         UserModel userModel = userRequest.asUserModel();
         userModel = userRepository.save(userModel);
         return User.fromUserModel(userModel);
     }
 
-    public User update(String idString, UpdateUserRequest userRequest)
+    public User update(String idString, UserDetails userRequest)
             throws IllegalArgumentException, NumberFormatException {
         Long id = Long.valueOf(idString);
         Optional<UserModel> userModel = userRepository.findById(id);
