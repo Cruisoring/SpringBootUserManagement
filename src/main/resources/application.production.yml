@@ -28,9 +28,6 @@ logging:
     com.memorynotfound: DEBUG
     org.springframework.web: INFO
     org.springframework.security: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql: trace
 
-# ======================================
-# = Pagehelper Settings
-# ======================================
-pagehelper:
-  helper-dialect: mysql

@@ -13,8 +13,8 @@ spring:
 # = Hibernate datasource
 # ======================================
   datasource:
-#    url: jdbc:h2:file:~/test
-    url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=TRUE
+    url: jdbc:h2:file:c:/temp/h2
+#    url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=TRUE
     username: sa
     password:
     driver-class-name: org.h2.Driver
@@ -33,13 +33,19 @@ spring:
       format_sql: true
 
 # ======================================
-# = Pagehelper Settings
-# ======================================
-pagehelper:
-  helper-dialect: h2
-
-# ======================================
 # = Paging settings
 # ======================================
 paging:
-  size: 3
+  size: 5
+
+# ======================================
+# = Debug settings
+# ======================================
+debug: true
+
+# ===============================
+# = Logging configurations
+# ===============================
+logging:
+  level: DEBUG
+

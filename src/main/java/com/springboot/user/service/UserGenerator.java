@@ -1,6 +1,8 @@
 package com.springboot.user.service;
 
 import com.springboot.user.data.model.UserModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,37 +11,37 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-//@Profile("test")
 @Service
 public class UserGenerator {
+
     private final static int maxFakeNumber = 100;
     private final static Random random = new Random();
-    private final static String alphabet = "abcdefghijklmnopqrstuvwxyz";
-    private final static int alphabetLength = alphabet.length();
+    private final static Character characterA = 'a';
+    private final static int alphabetLength = 26;
 
     private static String getRandomName(int length){
 
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < length; i++) {
-            sb.append(alphabet.charAt(random.nextInt(alphabetLength)));
-        }
-        return sb.toString();
+        String randomName = IntStream.range(0, length)
+                .mapToObj(i -> String.valueOf((char)(characterA + random.nextInt(alphabetLength))))
+                .reduce("", (sentence, ch) -> sentence+ch);
+
+        return randomName;
     }
 
-    public List<UserModel> getFakeUsers(int number){
+    public static List<UserModel> getFakeUsers(int number){
         if(number < 1){
             return new ArrayList<>();
         } else if (number > maxFakeNumber){
             number = maxFakeNumber;
         }
 
-        List<UserModel> users = IntStream.range(0, number)
+        List<UserModel> users = IntStream.range(0, number).parallel()
                 .mapToObj(i -> getFakeUser())
                 .collect(Collectors.toList());
         return users;
     }
 
-    public UserModel getFakeUser(){
+    public static UserModel getFakeUser(){
         UserModel userModel = new UserModel();
         String username = getRandomName(2 + random.nextInt(5));
         userModel.setUserName(username);

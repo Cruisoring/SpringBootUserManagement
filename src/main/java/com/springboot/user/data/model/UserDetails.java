@@ -8,4 +8,22 @@ public interface UserDetails {
     String getUserName();
 
     String getPassword();
+
+    default UserModel asUserModel(){
+        UserModel newUserModel = new UserModel();
+        return updateModel(newUserModel);
+    }
+
+    default UserModel updateModel(UserModel userModel){
+        if(userModel == null){
+            return null;
+        }
+
+        userModel.setName(getName());
+        userModel.setUserName(getUserName());
+        userModel.setEmail(getEmail());
+        userModel.setPassword(getPassword());
+        return userModel;
+    }
+
 }

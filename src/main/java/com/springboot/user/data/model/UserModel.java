@@ -6,25 +6,6 @@ import javax.persistence.*;
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class UserModel extends BaseModel implements UserIdDetails {
 
-    public static UserModel fromUserDetails(UserDetails userDetails){
-        UserModel newUserModel = new UserModel();
-        return updateUserDetails(newUserModel, userDetails);
-    }
-
-    public static UserModel updateUserDetails(UserModel userModel, UserDetails userDetails){
-        if(userModel == null){
-            return null;
-        } else if(userDetails == null){
-            return userModel;
-        }
-
-        userModel.setName(userDetails.getName());
-        userModel.setUserName(userDetails.getUserName());
-        userModel.setEmail(userDetails.getEmail());
-        userModel.setPassword(userDetails.getPassword());
-        return userModel;
-    }
-
     @Override
     public String getEmail() {
         return email;
