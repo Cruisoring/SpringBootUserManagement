@@ -34,8 +34,8 @@ public class UserApplication {
 			return;
 
 		List<String> activeProfiles = Arrays.asList(applicationContext.getEnvironment().getActiveProfiles());
-		if(activeProfiles.contains("test") && userRepository.count() < 50) {
-			List<UserModel> fakeUsers = UserGenerator.getFakeUsers(10);
+		if(activeProfiles.contains("test") && userRepository.count() < 30) {
+			List<UserModel> fakeUsers = UserGenerator.getFakeUsers(30);
 			userRepository.saveAll(fakeUsers);
 		}
 	}

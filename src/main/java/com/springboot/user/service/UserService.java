@@ -5,7 +5,6 @@ import com.springboot.user.data.repository.UserRepository;
 import com.springboot.user.dto.CreateUserRequest;
 import com.springboot.user.dto.UpdateUserRequest;
 import com.springboot.user.dto.User;
-import com.springboot.user.exception.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +33,14 @@ public class UserService {
     }
 
     public User get(String idString)
-            throws EntityNotFoundException, NumberFormatException {
+            throws IllegalArgumentException, NumberFormatException {
         Long id = Long.valueOf(idString);
         Optional<UserModel> userModel = userRepository.findById(id);
         if(userModel.isPresent()) {
             User user = User.fromUserModel(userModel.get());
             return user;
         } else {
-            throw new EntityNotFoundException(User.class, idString);
+            throw new IllegalArgumentException("Illegal Argument: " + idString);
         }
     }
 
@@ -52,20 +51,21 @@ public class UserService {
     }
 
     public User update(String idString, UpdateUserRequest userRequest)
-            throws EntityNotFoundException, NumberFormatException {
+            throws IllegalArgumentException, NumberFormatException {
         Long id = Long.valueOf(idString);
         Optional<UserModel> userModel = userRepository.findById(id);
         if(userModel.isPresent()) {
             UserModel model = userModel.get();
             userRequest.updateModel(model);
+            model = userRepository.save(model);
             return User.fromUserModel(model);
         } else {
-            throw new EntityNotFoundException(User.class, idString);
+            throw new IllegalArgumentException("Illegal Argument: " + idString);
         }
     }
 
     public User delete(String idString)
-            throws EntityNotFoundException, NumberFormatException{
+            throws IllegalArgumentException, NumberFormatException{
         Long id = Long.valueOf(idString);
         Optional<UserModel> userModel = userRepository.findById(id);
         if(userModel.isPresent()) {
@@ -73,7 +73,7 @@ public class UserService {
             userRepository.delete(model);
             return User.fromUserModel(model);
         } else {
-            throw new EntityNotFoundException(User.class, idString);
+            throw new IllegalArgumentException("Illegal Argument: " + idString);
         }
     }
 }

@@ -9,15 +9,8 @@ spring:
     add-mappings: false
 
 # ======================================
-# = Paging Settings
+# = Paging settings
 # ======================================
 paging:
-  size: 10
+  size: 5
 
-# ======================================
-# = Pagehelper Settings
-# ======================================
-pagehelper:
-  reasonable: true
-  support-methods-arguments: true
-  params: count=countSql

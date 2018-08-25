@@ -3,7 +3,6 @@ package com.springboot.user.controller;
 import com.springboot.user.dto.CreateUserRequest;
 import com.springboot.user.dto.UpdateUserRequest;
 import com.springboot.user.dto.User;
-import com.springboot.user.exception.EntityNotFoundException;
 import com.springboot.user.properties.PagingProperties;
 import com.springboot.user.service.UserService;
 import org.slf4j.Logger;
@@ -35,7 +34,7 @@ public class UserController {
             @RequestParam(value = "page", required = false, defaultValue = "0") int page,
             @RequestParam(value = "size", required = false, defaultValue = "0") int size
     ) {
-        if (size == 0) {
+        if (size <= 0) {
             size = pagingProperties.getSize();
         }
         List<User> users = userService.get(page, size);
@@ -50,20 +49,20 @@ public class UserController {
 
     @GetMapping(value = "/{id}")
     public User getUser(@PathVariable("id") String id)
-            throws EntityNotFoundException {
+            throws IllegalArgumentException {
         return userService.get(id);
     }
 
     @PostMapping(value = "/{id}")
     public User updateUser(@PathVariable("id") String id,
                            @RequestBody @Valid UpdateUserRequest update)
-            throws EntityNotFoundException, NumberFormatException {
+            throws IllegalArgumentException, NumberFormatException {
         return userService.update(id, update);
     }
 
     @DeleteMapping(value = "/{id}")
     public User deleteUser(@PathVariable("id") String id)
-            throws EntityNotFoundException, NumberFormatException {
+            throws IllegalArgumentException, NumberFormatException {
         return userService.delete(id);
     }
 

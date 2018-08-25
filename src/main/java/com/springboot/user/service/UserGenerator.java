@@ -14,7 +14,7 @@ import java.util.stream.IntStream;
 @Service
 public class UserGenerator {
 
-    private final static int maxFakeNumber = 100;
+    public final static int maxFakeNumber = 100;
     private final static Random random = new Random();
     private final static Character characterA = 'a';
     private final static int alphabetLength = 26;
