@@ -1,0 +1,36 @@
+spring:
+# ======================================
+# = Hibernate datasource
+# ======================================
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/test
+    username: root
+    password: P@ssW0rd
+    driver-class-name: com.mysql.jdbc.Driver
+
+# ======================================
+# = JPA configurations
+# ======================================
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    database-platform: MYSQL
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+
+# ===============================
+# = Logging configurations
+# ===============================
+logging:
+  level:
+    root: WARN
+    com.memorynotfound: DEBUG
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+
+# ======================================
+# = Pagehelper Settings
+# ======================================
+pagehelper:
+  helper-dialect: mysql

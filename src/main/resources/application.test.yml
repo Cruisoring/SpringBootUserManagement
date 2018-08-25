@@ -1,0 +1,45 @@
+spring:
+# ======================================
+# = H2 Settings
+# ======================================
+  h2:
+    console:
+      enabled: true
+      settings:
+        trace: false
+        web-allow-others: false
+
+# ======================================
+# = Hibernate datasource
+# ======================================
+  datasource:
+#    url: jdbc:h2:file:~/test
+    url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=TRUE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+# ======================================
+# = JPA configurations
+# ======================================
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: 'create-drop'
+    properties:
+      show_sql: true
+      use_sql_comments: true
+      format_sql: true
+
+# ======================================
+# = Pagehelper Settings
+# ======================================
+pagehelper:
+  helper-dialect: h2
+
+# ======================================
+# = Paging settings
+# ======================================
+paging:
+  size: 3

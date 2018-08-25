@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: test
+  application:
+    name: User Management
+
+# ======================================
+# = Paging Settings
+# ======================================
+paging:
+  size: 10
+
+# ======================================
+# = Pagehelper Settings
+# ======================================
+pagehelper:
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
